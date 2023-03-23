@@ -1,7 +1,9 @@
 const fs = require("fs");
-const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
-const [N, M] = input[0].split(" ").map((v) => Number(v));
-input.shift();
+const input = fs.readFileSync("./input.txt").toString().trim().split("\n");
+const [N, M] = input
+  .shift()
+  .split(" ")
+  .map((v) => Number(v));
 
 const graph = input.map((row) => row.split(" ").map((v) => Number(v)));
 let visited = Array.from(Array(N), () => Array(M).fill(0));
