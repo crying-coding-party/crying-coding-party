@@ -17,7 +17,11 @@ const directions = [
 ];
 
 const isValid = (row, col) => {
-  return 0 <= row && row < ROW && 0 <= col && col <= COLUMN; //row 와 col 이 유효한 값인지 확인
+  return 0 <= row && row < ROW && 0 <= col && col <= COLUMN;
+};
+
+const isVisitable = (row, col) => {
+  return BOARD[row][col] === 1 && visited[row][col] === false;
 };
 
 /**
@@ -37,7 +41,7 @@ const BFS = (row, col) => {
       let [newX, newY] = [currentX + dir[0], currentY + dir[1]];
 
       if (isValid(newX, newY)) {
-        if (BOARD[newX][newY] === 1 && visited[newX][newY] === false) {
+        if (isVisitable(newX,newY)) {
           visited[newX][newY] = true; //방문 true 로 바꿔줌
           area += 1; // 구하려는 넓이에 1을 더해줌
           queue.push([newX, newY]); //다시 bfs 진행하기 위해 queue 에 넣어줌
@@ -51,7 +55,7 @@ const BFS = (row, col) => {
 
 for (let i = 0; i < ROW; i += 1) {
   for (let j = 0; j < COLUMN; j += 1) {
-    if (BOARD[i][j] === 1 && visited[i][j] === false) {
+    if (isVisitable(i,j)) {
       visited[i][j] = true;
       maxArea = Math.max(maxArea, BFS(i, j));
       drawingCount += 1;
