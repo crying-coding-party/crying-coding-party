@@ -43,8 +43,8 @@ const BFS = (row, col) => {
 
 const countArea = () => {
   let count = 0;
-  for (let i = 0; i < ROW; i += 1) {
-    for (let j = 0; j < COLUMN; j += 1) {
+  for (let i = 0; i < ROW; i ++) {
+    for (let j = 0; j < COLUMN; j ++) {
       if (!visited[i][j]) {
         count++;
         BFS(i, j);
@@ -60,8 +60,8 @@ notrgCount = countArea();
 //적록 색약 구역 count 를 위해 방문 초기화
 visited = Array.from(Array(ROW), () => Array(COLUMN).fill(false));
 
-for (let i = 0; i < ROW; i += 1) {
-  for (let j = 0; j < COLUMN; j += 1) {
+for (let i = 0; i < ROW; i ++) {
+  for (let j = 0; j < COLUMN; j ++) {
     if (BOARD[i][j] === 'R') BOARD[i][j] = 'G'; //적록색약은 R = G
   }
 }

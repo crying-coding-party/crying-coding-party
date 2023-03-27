@@ -55,7 +55,7 @@ for (let i = 0; i < num; i++) {
     for (let l = 0; l < COLUMN; l++) {
       if (BOARD[k][l] ===1) {
         BFS(k, l);
-        worm += 1;
+        worm ++;
       }
     }
   }

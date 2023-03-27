@@ -53,12 +53,12 @@ const BFS = (row, col) => {
   return area;
 };
 
-for (let i = 0; i < ROW; i += 1) {
-  for (let j = 0; j < COLUMN; j += 1) {
+for (let i = 0; i < ROW; i ++) {
+  for (let j = 0; j < COLUMN; j ++) {
     if (isVisitable(i,j)) {
       visited[i][j] = true;
       maxArea = Math.max(maxArea, BFS(i, j));
-      drawingCount += 1;
+      drawingCount ++;
     }
   }
 }
