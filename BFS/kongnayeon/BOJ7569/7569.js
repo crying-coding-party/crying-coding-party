@@ -12,6 +12,25 @@ for (let i = 1; i <= H; i++) {
   }
   box.push(board);
 }
+class Queue {
+    constructor() {
+      this.queue = [];
+      this.front = 0;
+      this.rear = 0;
+    }
+    enqueue(value) {
+      this.queue[this.rear++] = value;
+    }
+    dequeue() {
+      const value = this.queue[this.front];
+      delete this.queue[this.front];
+      this.front += 1;
+      return value;
+    }
+    isEmpty() {
+      return this.rear === this.front;
+    }
+  }
 
 if (!box.flat(2).includes(0)) console.log(0);
 else {
@@ -23,7 +42,7 @@ else {
 // 3차원
 function bfs(M, N, H, box) {
   let day = -1;
-  let queue = [];
+  const queue = new Queue();
   let visited = Array.from(Array(H), () =>
     Array.from(Array(N), () => Array(M).fill(false))
   ); // 방문 여부
@@ -37,14 +56,14 @@ function bfs(M, N, H, box) {
       for (let j = 0; j < M; j++) {
         if (!visited[k][i][j] && box[k][i][j] === 1) {
           visited[k][i][j] = true;
-          queue.push([k, i, j, 0]);
+          queue.enqueue([k, i, j, 0]);
         }
       }
     }
   }
 
-  while (queue.length !== 0) {
-    const [z, x, y, d] = queue.shift();
+  while (!queue.isEmpty()) {
+    const [z, x, y, d] = queue.dequeue();
     day = d;
     for (let dir = 0; dir < 6; dir++) {
       let nz = z + dz[dir];
@@ -57,7 +76,7 @@ function bfs(M, N, H, box) {
 
       visited[nz][nx][ny] = true;
       box[nz][nx][ny] = 1;
-      queue.push([nz, nx, ny,  day + 1]);
+      queue.enqueue([nz, nx, ny,  day + 1]);
     }
    
   }
