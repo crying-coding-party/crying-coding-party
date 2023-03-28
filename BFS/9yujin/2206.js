@@ -25,59 +25,63 @@ const direction = [
   [0, -1],
 ];
 
-const { BADFLAGS } = require("dns");
 //input
 const fs = require("fs");
-const input = fs.readFileSync("./input.txt").toString().trim().split("\n");
+const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
+const input = fs.readFileSync(filePath).toString().trim().split("\n");
 const [N, M] = input
   .shift()
   .split(" ")
   .map((v) => Number(v));
-
+if (N === 1 && M === 1) {
+  console.log(1);
+  return;
+}
 const graph = input.map((row) => Array.from(row).map((cell) => Number(cell)));
-let visited = Array.from(Array(N), () => Array(M).fill([0, 0]));
+let visited = Array.from(Array(N), () =>
+  Array.from(Array(M), () => Array(2).fill(0))
+);
 
 const bfs = () => {
   const queue = new Queue();
-  queue.enqueue([0, 0, 0]);
+  queue.enqueue([0, 0, 0, 1]);
   visited[0][0][0] = 1;
 
   while (!queue.isEmpty()) {
-    console.log(queue);
-    const current = queue.dequeue();
+    const [y, x, flag, count] = queue.dequeue();
 
-    direction
-      .filter((dir, i) => {
-        const [newY, newX, flag] = [
-          current[0] + dir[0],
-          current[1] + dir[1],
-          current[2],
-        ];
-        if (newY < 0 || newY >= N || newX < 0 || newX >= M) {
-          return false;
-        }
-        if (visited[newY][newX][0] != 0 && visited[newY][newX][1] != 0) {
-          return false;
-        }
-        return true;
-      })
-      .forEach((dir) => {
-        const [newY, newX, flag] = [
-          current[0] + dir[0],
-          current[1] + dir[1],
-          current[2],
-        ];
+    for (let i = 0; i < 4; i++) {
+      const newY = y + direction[i][0];
 
-        if (graph[newY][newX] == 0) {
-          visited[newY][newX][flag] = visited[current[0]][current[1]][flag] + 1;
-          queue.enqueue([newY, newX, flag]);
-        } else if (graph[newY][newX] == 1 && flag == 0) {
-          visited[newY][newX][1] = visited[current[0]][current[1]][0] + 1;
-          queue.enqueue([newY, newX, 1]);
+      const newX = x + direction[i][1];
+
+      if (newY === N - 1 && newX === M - 1) {
+        visited[newY][newX][flag] = 1;
+        console.log(count + 1);
+        process.exit();
+      }
+
+      if (newY >= 0 && newY < N && newX >= 0 && newX < M) {
+        //길일때
+        if (graph[newY][newX] == 0 && visited[newY][newX][flag] == 0) {
+          visited[newY][newX][flag] = 1;
+          queue.enqueue([newY, newX, flag, count + 1]);
+        } else {
+          //벽일때
+          if (flag == 0 && visited[newY][newX][flag] == 0) {
+            visited[newY][newX][1] = 1;
+            queue.enqueue([newY, newX, 1, count + 1]);
+          } else {
+            continue;
+          }
         }
-      });
+      }
+    }
   }
 };
 
 bfs();
-console.log(visited);
+
+if (visited[N - 1][M - 1][0] == 0 && visited[N - 1][M - 1][1] == 0) {
+  console.log(-1);
+}
