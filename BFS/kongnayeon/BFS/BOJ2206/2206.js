@@ -45,7 +45,6 @@ function bfs(N, M, arr){
        for(let j = 0; j < M; j++){
             if(arr[i][j] === 0 && !visited[i][j]){
                 visited[i][j][0] = true;
-                visited[i][j][1] = true;
 
                 queue.enqueue([i, j, 0, 0]);
                 while(!queue.isEmpty()){
