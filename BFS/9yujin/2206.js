@@ -1,0 +1,87 @@
+class Queue {
+  constructor() {
+    this.queue = [];
+    this.front = 0;
+    this.rear = 0;
+  }
+  enqueue(value) {
+    this.queue[this.rear++] = value;
+  }
+  dequeue() {
+    const value = this.queue[this.front];
+    delete this.queue[this.front];
+    this.front += 1;
+    return value;
+  }
+  isEmpty() {
+    return this.rear === this.front;
+  }
+}
+
+const direction = [
+  [1, 0],
+  [-1, 0],
+  [0, 1],
+  [0, -1],
+];
+
+//input
+const fs = require("fs");
+const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
+const input = fs.readFileSync(filePath).toString().trim().split("\n");
+const [N, M] = input
+  .shift()
+  .split(" ")
+  .map((v) => Number(v));
+if (N === 1 && M === 1) {
+  console.log(1);
+  return;
+}
+const graph = input.map((row) => Array.from(row).map((cell) => Number(cell)));
+let visited = Array.from(Array(N), () =>
+  Array.from(Array(M), () => Array(2).fill(0))
+);
+
+const bfs = () => {
+  const queue = new Queue();
+  queue.enqueue([0, 0, 0, 1]);
+  visited[0][0][0] = 1;
+
+  while (!queue.isEmpty()) {
+    const [y, x, flag, count] = queue.dequeue();
+
+    for (let i = 0; i < 4; i++) {
+      const newY = y + direction[i][0];
+
+      const newX = x + direction[i][1];
+
+      if (newY === N - 1 && newX === M - 1) {
+        visited[newY][newX][flag] = 1;
+        console.log(count + 1);
+        process.exit();
+      }
+
+      if (newY >= 0 && newY < N && newX >= 0 && newX < M) {
+        //길일때
+        if (graph[newY][newX] == 0 && visited[newY][newX][flag] == 0) {
+          visited[newY][newX][flag] = 1;
+          queue.enqueue([newY, newX, flag, count + 1]);
+        } else {
+          //벽일때
+          if (flag == 0 && visited[newY][newX][flag] == 0) {
+            visited[newY][newX][1] = 1;
+            queue.enqueue([newY, newX, 1, count + 1]);
+          } else {
+            continue;
+          }
+        }
+      }
+    }
+  }
+};
+
+bfs();
+
+if (visited[N - 1][M - 1][0] == 0 && visited[N - 1][M - 1][1] == 0) {
+  console.log(-1);
+}
