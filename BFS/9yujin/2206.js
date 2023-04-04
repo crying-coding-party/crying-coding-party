@@ -44,33 +44,29 @@ let visited = Array.from(Array(N), () =>
 
 const bfs = () => {
   const queue = new Queue();
-  queue.enqueue([0, 0, 0, 1]);
+  queue.enqueue([0, 0, 0]);
   visited[0][0][0] = 1;
 
   while (!queue.isEmpty()) {
-    const [y, x, flag, count] = queue.dequeue();
-
+    const [y, x, flag] = queue.dequeue();
+    if (y === N - 1 && x === M - 1) {
+      console.log(visited[y][x][flag]);
+      process.exit();
+    }
     for (let i = 0; i < 4; i++) {
       const newY = y + direction[i][0];
-
       const newX = x + direction[i][1];
-
-      if (newY === N - 1 && newX === M - 1) {
-        visited[newY][newX][flag] = 1;
-        console.log(count + 1);
-        process.exit();
-      }
 
       if (newY >= 0 && newY < N && newX >= 0 && newX < M) {
         //길일때
         if (graph[newY][newX] == 0 && visited[newY][newX][flag] == 0) {
-          visited[newY][newX][flag] = 1;
-          queue.enqueue([newY, newX, flag, count + 1]);
+          visited[newY][newX][flag] = visited[y][x][flag] + 1;
+          queue.enqueue([newY, newX, flag]);
         } else {
           //벽일때
           if (flag == 0 && visited[newY][newX][flag] == 0) {
-            visited[newY][newX][1] = 1;
-            queue.enqueue([newY, newX, 1, count + 1]);
+            visited[newY][newX][1] = visited[y][x][0] + 1;
+            queue.enqueue([newY, newX, 1]);
           } else {
             continue;
           }
