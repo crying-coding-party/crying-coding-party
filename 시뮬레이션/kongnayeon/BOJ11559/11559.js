@@ -5,32 +5,28 @@ const input = fs.readFileSync(filePath).toString().trim().split('\n');
 let arr = [];
 
 for (let i = 0; i < 12; i++) {
-    const line = input.shift().split(' ');
+    const line = input.shift().split('');
     arr.push(line);
 }
 
-let isExploded = false;
-let explosion = 0;
-
+let explosions = 0;
 
 const dx = [-1, 0, 1, 0]; // 상 우 하 좌
 const dy = [0, 1, 0, -1];
 
-// 뿌요가 하나라도 있는지 검사
-const hasPuyo = () => arr.flat().some((elem) => elem !== '.');
 
-// 밑으로 내려 주기
+// 뿌요 밑으로 내리기
 const setPuyo = () => {
     for (let i = 0; i < 6; i++) {
-        for (let j = 11, k = 11; j >= 0 && k >= 0;) {
+        for (let j = 11; j >= 0; j--) {
             if (arr[j][i] === '.') {
-                j--;
-            } else if (arr[k][i] !== '.') {
-                k--;
-            } else {
-                [arr[k][i], arr[j][i]] = [arr[j][i], arr[k][i]];
-                j--;
-                k--;
+                for (let k = j - 1; k >= 0; k--) {
+                    if (arr[k][i] !== '.') {
+                        arr[j][i] = arr[k][i];
+                        arr[k][i] = '.';
+                        break;
+                    }
+                }
             }
         }
     }
@@ -39,7 +35,6 @@ const setPuyo = () => {
 
 const explodePuyo = () => {
     let targets = [];
-    isExploded = false;
     let visited = Array.from(Array(12), () => Array(6).fill(false));
   
     for (let i = 11; i >= 0; i--) {
@@ -67,48 +62,28 @@ const explodePuyo = () => {
           }
         }
   
-        if (count > 3) {
-        isExploded = true;
+        if (count > 2) {
+            targets.push([i, j]);
         }
       }
-      targets.forEach(([x, y]) => {
-        arr[x][y] = '.';
-      });
-    
-      return targets.length;
     }
+    if (targets.length === 0) return false;
 
-    // while (targets.length) {
-    //     let [x, y] = targets.shift();
-    //     arr[x][y] = '.';
+    targets.forEach(([x, y]) => {
+        arr[x][y] = '.';
+    });
 
-    //     for (let k = 0; k < 4; k++) {
-    //       let nx = x + dx[k];
-    //       let ny = y + dy[k];
+    setPuyo();
+    explosions++;
 
-    //       if (nx < 0 || nx > 11 || ny < 0 || ny > 5) continue;
-    //       if (visited[nx][ny] || arr[nx][ny] !== arr[x][y]) continue;
-
-    //       arr[nx][ny] = '.';
-    //     }
-
-    //     explosion++;
-    // }
+    return true;
    
 };
 
-  
-
-// 뿌요가 하나 이상 있는 경우에만 루프 실행
-if (hasPuyo()) {
-    while (true) {
-        if (explodePuyo()) {
-            explosion += explodePuyo;
-            setPuyo();
-        } else {
-            break;
-        }
-    }
+while (true) {
+    const count = explodePuyo();
+    if (count === 0) break;
+    setPuyo();
+    explosions++;
 }
-
-console.log(explosion);
+console.log(explosions);
