@@ -5,10 +5,15 @@ const input = fs.readFileSync(filePath).toString().trim().split('\n');
 const T = Number(input.shift());
 
 const solution = (A, B) => {
+    A.sort((a, b) => a - b);
+    B.sort((a, b) => a - b);
+
     let count = 0;
-    A.map((a) => {
-        B.map((b) => {
+
+    A.forEach((a) => {
+        B.forEach((b) => {
             if(a > b) count++;
+            else return;
         })
     })
     return count;
