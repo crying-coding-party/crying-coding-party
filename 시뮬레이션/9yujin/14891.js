@@ -23,7 +23,6 @@ const rotate = (target, direction) => {
 };
 
 const rotationRecursion = (start, direction) => {
-  rotate(start, direction);
   isRotated[start] = 1;
   const left = start - 1;
   const right = start + 1;
@@ -32,6 +31,7 @@ const rotationRecursion = (start, direction) => {
     rotationRecursion(left, direction * -1);
   if (right < 4 && wheel[right][6] !== wheel[start][2] && isRotated[right] == 0)
     rotationRecursion(right, direction * -1);
+  rotate(start, direction);
 };
 
 rotation.forEach(([start, direction]) => {
@@ -39,4 +39,3 @@ rotation.forEach(([start, direction]) => {
   isRotated = [0, 0, 0, 0];
 });
 console.log(wheel[0][0] + wheel[1][0] * 2 + wheel[2][0] * 4 + wheel[3][0] * 8);
-``;
