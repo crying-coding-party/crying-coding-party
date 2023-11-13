@@ -10,3 +10,7 @@
 ### 시즌 2 - 1주차
 1. https://school.programmers.co.kr/learn/courses/30/lessons/118667
 2. https://school.programmers.co.kr/learn/courses/30/lessons/92342
+
+### 시즌 2 - 2주차
+1. https://school.programmers.co.kr/learn/courses/30/lessons/92341
+2. https://school.programmers.co.kr/learn/courses/30/lessons/92335
