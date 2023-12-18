@@ -22,3 +22,7 @@
 ### 시즌 2 - 4주차
 1. https://school.programmers.co.kr/learn/courses/30/lessons/43105
 2. https://school.programmers.co.kr/learn/courses/30/lessons/150369
+
+### 시즌 3 - 5주차
+1. https://school.programmers.co.kr/learn/courses/30/lessons/42898
+2. https://school.programmers.co.kr/learn/courses/30/lessons/72411
