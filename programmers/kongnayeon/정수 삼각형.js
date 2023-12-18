@@ -1,15 +1,17 @@
 function solution(triangle) {
-  for (i = 1; i < triangle.length; i++) {
-    for (j = 0; j < triangle[i].length; j++) {
+  let dp = triangle.map((row) => row.slice()); // 새로운 배열 생성하여 원본 데이터 보존
+
+  for (let i = 1; i < dp.length; i++) {
+    for (let j = 0; j < dp[i].length; j++) {
       if (j === 0) {
-        triangle[i][j] += triangle[i - 1][j];
-      } else if (j === i) {
-        triangle[i][j] += triangle[i - 1][j - 1];
+        dp[i][j] += dp[i - 1][j];
+      } else if (j === dp[i].length - 1) {
+        dp[i][j] += dp[i - 1][j - 1];
       } else {
-        triangle[i][j] += Math.max(triangle[i - 1][j - 1], triangle[i - 1][j]);
+        dp[i][j] += Math.max(dp[i - 1][j - 1], dp[i - 1][j]);
       }
     }
   }
 
-  return Math.max(...triangle[triangle.length - 1]);
+  return Math.max(...dp[dp.length - 1]);
 }
