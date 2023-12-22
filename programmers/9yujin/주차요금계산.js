@@ -30,7 +30,7 @@ function solution(fees, records) {
     .map((v) => [Number(v[0]), v[1]])
     .sort((a, b) => a[0] - b[0])
     .map((v) => v[1]);
-  console.log(times);
+
   return times.map((v) =>
     v - defaultTime >= 0
       ? Math.ceil((v - defaultTime) / unitTime) * unitFee + defaultFee
