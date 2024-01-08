@@ -26,3 +26,7 @@
 ### 시즌 2 - 5주차
 1. https://school.programmers.co.kr/learn/courses/30/lessons/42898
 2. https://school.programmers.co.kr/learn/courses/30/lessons/72411
+
+### 시즌 2 - 6주차
+1. https://school.programmers.co.kr/learn/courses/30/lessons/42895
+2. https://school.programmers.co.kr/learn/courses/30/lessons/60058
