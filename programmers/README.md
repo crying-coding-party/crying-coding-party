@@ -42,3 +42,7 @@
 ### 시즌 2 - 9주차
 1. https://school.programmers.co.kr/learn/courses/30/lessons/17686
 2. https://school.programmers.co.kr/learn/courses/30/lessons/72413
+
+### 시즌 2 - 10주차
+1. https://school.programmers.co.kr/learn/courses/30/lessons/17678
+2. https://school.programmers.co.kr/learn/courses/30/lessons/17684
