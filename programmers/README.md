@@ -50,3 +50,7 @@
 ### 시즌 2 - 11주차
 1. https://school.programmers.co.kr/learn/courses/30/lessons/67259
 2. https://school.programmers.co.kr/learn/courses/30/lessons/17683
+
+### 시즌 2 - 12주차
+1. https://school.programmers.co.kr/learn/courses/30/lessons/42892
+2. https://school.programmers.co.kr/learn/courses/30/lessons/17680
