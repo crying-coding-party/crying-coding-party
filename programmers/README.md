@@ -58,3 +58,7 @@
 ### 시즌 2 - 13주차
 1. https://school.programmers.co.kr/learn/courses/30/lessons/81303
 2. https://school.programmers.co.kr/learn/courses/30/lessons/72412
+
+### 시즌 2 - 14주차
+1. https://school.programmers.co.kr/learn/courses/30/lessons/60061
+2. https://school.programmers.co.kr/learn/courses/30/lessons/68646
