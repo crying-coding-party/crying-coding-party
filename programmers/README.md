@@ -70,3 +70,7 @@
 ### 시즌 2 - 16주차
 1. https://school.programmers.co.kr/learn/courses/30/lessons/64065
 2. https://school.programmers.co.kr/learn/courses/30/lessons/72414
+
+### 시즌 2 - 17주차
+1. https://school.programmers.co.kr/learn/courses/30/lessons/42888
+2. https://school.programmers.co.kr/learn/courses/30/lessons/92343
